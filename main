@@ -125,7 +125,6 @@ class playWordle(fileFunctions):
                             result += guess[i]
                     
                     choiceWord = choiceCopy.copy()
-                    print(choiceWord)
                     result += '\n'
                     print(result)
                     guess_count -= 1
