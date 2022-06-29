@@ -1,0 +1,3 @@
+# Wordle
+
+Have fun playing!
