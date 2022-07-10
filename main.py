@@ -1,4 +1,7 @@
 
+from xml.dom.minicompat import StringTypes
+
+
 class fileFunctions:
 
     def createDictFile(filename, dictionary):
@@ -38,7 +41,7 @@ class fileFunctions:
 
 
 class playWordle(fileFunctions):
-
+    import string
     from bs4 import BeautifulSoup as bs
     import requests as rq
     import random as rand
@@ -66,7 +69,17 @@ class playWordle(fileFunctions):
     #Primary outer loop. Repeats once every *GAME*.
         choice = rand.choice(words).lower()
         #Chooses word from Words
-        user_name = str(input("What is your name? "))
+        user_name = ''
+        lowercase = string.ascii_lowercase
+        while user_name == '':
+            count = 0
+            user_name = str(input("What are your initials? "))
+            for letter in user_name.lower():
+                if letter not in lowercase:
+                    count += 1
+            if count > 0:
+                print("Please enter only your initials.")
+                user_name = ''
         #Asks user for name
         guess_count = 5
         #Initializes count of guess remaining
@@ -83,7 +96,7 @@ class playWordle(fileFunctions):
                 #    choiceWord[choice[i]] += 1
 
         time.sleep(1)
-        print('\n' + "Welcome to Wordle, {}! A fun, interactive game all about educated guesses.".format(user_name.capitalize()))
+        print('\n' + "Welcome to Wordle, {}! A fun, interactive game all about educated guesses.".format(user_name.upper()))
         time.sleep(2.5)
         print("Letters surrounded by the '[]' character indicate that is the correct letter in the correct spot.")
         time.sleep(2)
@@ -140,11 +153,11 @@ class playWordle(fileFunctions):
             invert_guess_count = 5 - (guess_count) + 1
             print('\n' + "You nailed it in {} guesses!".format(invert_guess_count))
             time.sleep(2)
-            print("Great job {}, we're very proud of you.".format(user_name.capitalize())+'\n')
+            print("Great job {}, we're very proud of you.".format(user_name.upper())+'\n')
             time.sleep(3.5)
             
         else:
-            print('\n' + "{}... you've failed.".format(user_name.capitalize()))
+            print('\n' + "{}... you've failed.".format(user_name.upper()))
             time.sleep(2)
             print("The word was {}.".format(choice.lower()))
             time.sleep(2)
@@ -168,4 +181,3 @@ class playWordle(fileFunctions):
         else:
             print("Name does not exist.")
             get_score = str(input("Would you like to check more highscores?(Yes/No) "))
-
