@@ -1,7 +1,3 @@
-
-from xml.dom.minicompat import StringTypes
-
-
 class fileFunctions:
 
     def createDictFile(filename, dictionary):
@@ -47,7 +43,15 @@ class playWordle(fileFunctions):
     import random as rand
     import collections as coll
     import time
+    import re
     #Imports
+
+    # Function to convert  
+    def listToString(s): 
+    # initialize an empty string
+        str1 = "" 
+    # return string  
+        return (str1.join(s)).strip()
 
     words = []
             
@@ -109,7 +113,7 @@ class playWordle(fileFunctions):
 
         guess = str(input('Pick a 5 letter word: '))
         #User guess
-        result = ""
+        result = "\n"
         #Initializes Result variable
         choiceCopy = choiceWord.copy()
         #Copies 
@@ -118,10 +122,9 @@ class playWordle(fileFunctions):
         while guess != choice:
         #Primary inner loop. Repeats once every *GUESS*. So, max 5(counting 1st) per game.
             replaceDict = {}
-            #
             if guess_count > 1:
-                if len(guess) != 5:
-                    print("Please enter a 5 letter word, {}.".format(user_name.capitalize()))
+                if len(guess) != 5 or listToString(re.findall('\D',guess)) != guess:
+                    print("Please enter a 5 letter word, {}.".format(user_name.upper()))
                     guess = str(input('Pick a 5 letter word: '))
                 else:
                     for i in range(len(choice)):
@@ -175,7 +178,7 @@ class playWordle(fileFunctions):
         d = fileFunctions.readDictFile('TimesPlayed.txt')
         if check_name.lower() in d:
             print("{} has won this game {} times!".format(
-                fileFunctions.getScore('TimesPlayed.Txt',check_name)[0].capitalize(),fileFunctions.getScore('TimesPlayed.txt',check_name)[1])
+                fileFunctions.getScore('TimesPlayed.Txt',check_name)[0].upper(),fileFunctions.getScore('TimesPlayed.txt',check_name)[1])
                 )
             get_score = str(input("Would you like to check more highscores?(Yes/No) "))
         else:
