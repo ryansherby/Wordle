@@ -1,4 +1,9 @@
 import fileFunctions as ff
+import dependencies
+#Local imports
+
+dependencies.installDependencies(['bs4','requests'])
+
 import string
 from bs4 import BeautifulSoup as bs
 import requests as rq
@@ -6,7 +11,7 @@ import random as rand
 import collections as coll
 import time
 import re
-#Imports
+#Global imports
 
 # Function to convert  
 def listToString(s): 
